@@ -25,19 +25,31 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [X] **Describe the game's purpose.**
+  A Streamlit number-guessing game where the player selects a difficulty (Easy, Normal, or Hard), receives a range of possible numbers, and tries to guess the secret number within a limited number of attempts. After each guess the game gives a directional hint ("Go HIGHER" or "Go LOWER") and tracks a running score that decreases the longer it takes to win.
+
+- [x] **Detail which bugs you found.**
+  1. **Reversed hints** — guessing below the secret number showed "Go LOWER" and guessing above showed "Go HIGHER", the exact opposite of correct.
+  2. **Off-by-one attempts** — `st.session_state.attempts` was initialized to `1` instead of `0`, so on Normal difficulty the player only received 7 guesses even though the UI advertised 8.
+  3. **Broken New Game button** — clicking New Game did not reset `status` back to `"playing"`, so after a win or loss the game stayed locked on the end screen and the success banner never appeared.
+
+- [x] **Explain what fixes you applied.**
+  1. Swapped the return values in `check_guess()` so `"📉 Go LOWER!"` is returned when `guess > secret` and `"📈 Go HIGHER!"` when `guess < secret`.
+  2. Changed the attempts initializer from `1` to `0` so attempt counting starts correctly and the full advertised number of guesses is available.
+  3. Updated the New Game handler to reset `st.session_state.status` to `"playing"` and clear `history` before calling `st.rerun()`, and used a `show_new_game_msg` flag to display the success banner after the rerun completes.
 
 ## 📸 Demo Walkthrough
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. User selects Normal difficulty and the game picks a secret number between 1 and 100
+2. User enters a guess of 50 → game returns "📉 Go LOWER!"
+3. User enters a guess of 25 → game returns "📈 Go HIGHER!"
+4. User enters a guess of 37 → game returns "📈 Go HIGHER!"
+5. User enters a guess of 44 → game returns "📉 Go LOWER!"
+6. User enters a guess of 42 → game returns "🎉 Correct!" and displays the final score
+7. Score updates correctly after each guess based on attempt number
+8. User clicks New Game → attempts and score reset, a fresh secret number is chosen, and the game is immediately ready to play
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
@@ -45,8 +57,8 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 
 ```
 # Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+ pytest test/test_game_logic.py
+========================= 8 passed in 0.05s =========================
 ```
 
 ## 🚀 Stretch Features

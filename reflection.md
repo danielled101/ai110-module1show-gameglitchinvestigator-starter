@@ -62,11 +62,23 @@ AI helped me understand and debug the tests. Claude helped identify some of the 
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
+I would explain Streamlit reruns to a friend by saying that every time you click a button or enter something, Streamlit runs the code again from the top. This means the program can accidentally forget information if it is not saved somewhere. 
+
+Session state is like the game's memory. It remembers things such as the secret number, score, and number of attempts even when Streamlit runs the code again. Without session state, the game would restart every time the player made a guess.
+
 ---
 
 ## 5. Looking ahead: your developer habits
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+
+One habit I want to reuse in future projects is testing my code in small steps instead of waiting until the end. Running pytest after making changes helped me find problems earlier and made debugging easier. I also want to continue making multiple Git commits throughout a project instead of doing one large commit at the end.
+
 - What is one thing you would do differently next time you work with AI on a coding task?
+
+One thing I would do differently next time is verify AI suggestions sooner by testing them immediately. Sometimes an AI suggestion may seem correct but still not completely solve the problem, so running tests and checking the results is important.
+
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+This project changed the way I think about AI-generated code because I learned that AI works best as a teammate rather than a replacement for the programmer. AI can provide helpful suggestions, but it is still important to test, debug, and verify the code yourself before accepting the solution.
