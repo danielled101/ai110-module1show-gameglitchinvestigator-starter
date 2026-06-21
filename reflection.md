@@ -7,16 +7,21 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - What did the game look like the first time you ran it?
 - List at least two concrete bugs you noticed at the start  
   (for example: "the hints were backwards").
+    - The hints were backwards. For example, I guessed 58 when the secret number was 71, and the game told me to "Go LOWER"
+    - The "New Game" does not reload the page/restart the game properly
+    - The game says 8 attempts allowed but only gives the user 7 attempts
 
 **Bug Reproduction Log**
 
 Document at least 3 bugs you found. Add rows as needed.
 
-| Input | Expected Behavior | Actual Behavior | Console Output / Error |
-|-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+|    Input     | Expected Behavior  | Actual Behavior | Console Output / Error |
+|--------------|-------------------|-----------------|------------------------|
+|Guess of 58 when the secret number was 71 | The game should display "Too Low" or "Go Higher" because 58 is less than 71 | The game displayed "Go Lower" even though the guess was below the secret number | None |
+
+|Clicked "New Game" after finishing a round | The game should restart with a new secret number, reset score, and reset attempts |The game did not restart or reload properly | None|
+
+|Made 7 guesses on Normal difficulty | If the game says "Attempts Allowed: 8", the player should receive 8 attempts before the game ends | The game ended after 7 attempts even though it claimed 8 attempts were allowed | None |
 
 ---
 
