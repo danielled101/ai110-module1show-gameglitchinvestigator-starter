@@ -27,18 +27,34 @@ Document at least 3 bugs you found. Add rows as needed.
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
+- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)? 
+
+I used both Claude and ChatGPT during this project. I primarily used Claude inside VS Code to help identify and fix bugs in the game code. I also used ChatGPT to help me understand pytest errors, implement the functions in logic_utils.py, and interpret the test results.
+
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
+
+One example of a correct AI suggestion came from Claude. Claude helped identify several bugs in the game, including the reversed high/low hints, the incorrect number of attempts, and issues with the New Game functionality. Claude also helped refactor the game logic from app.py into logic_utils.py. I verified these suggestions by running the game, testing the behavior manually, and running python -m pytest after making the changes.
+
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+
+One example of an incorrect or misleading AI suggestion also came from Claude. When pytest produced a ModuleNotFoundError for logic_utils.py, Claude suggested creating a conftest.py file to modify the Python path. However, the actual problem was that the functions inside logic_utils.py still contained NotImplementedError and had not been implemented yet. I used ChatGPT to help investigate the test failures, implemented the missing functions, and verified the solution by running python -m pytest, which eventually resulted in all 8 tests passing.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
+
+I decided a bug was fixed by both manually testing the game and running automated tests with pytest. For example, I tested the hint system by entering guesses that were above and below the secret number. If the hints matched the guesses correctly, I knew the bug had been fixed.
+
 - Describe at least one test you ran (manual or using pytest)  
   and what it showed you about your code.
+
+One test I ran was python -m pytest. Initially, the tests failed because the functions in logic_utils.py still contained NotImplementedError. After implementing the functions, most of the tests passed, but two tests still failed because the messages did not contain the expected words "LOWER" and "HIGHER" in uppercase. After updating the messages, all 8 tests passed successfully.
+
 - Did AI help you design or understand any tests? How?
+
+AI helped me understand and debug the tests. Claude helped identify some of the original game bugs and assisted with refactoring the code into logic_utils.py. ChatGPT helped me understand the pytest error messages, implement the missing functions, and interpret the failed tests. The AI suggestions helped me design and verify the tests, but I confirmed the final results by running the game and executing python -m pytest.
 
 ---
 

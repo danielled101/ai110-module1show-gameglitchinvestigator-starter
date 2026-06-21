@@ -35,16 +35,16 @@ def check_guess(guess, secret):
 
     try:
         if guess > secret:
-            return "Too High", "📈 Go HIGHER!" #FIXME: Logic breaks here
+            return "Too High", "📉 Go LOWER!" #FIX: Swapped the hint meessages to point the user in a better direction of guessing the correct number
         else:
-            return "Too Low", "📉 Go LOWER!" #FIXME: Logic breaks here
+            return "Too Low", "📈 Go HIGHER!"
     except TypeError:
         g = str(guess)
         if g == secret:
             return "Win", "🎉 Correct!"
         if g > secret:
-            return "Too High", "📈 Go HIGHER!" #FIXME: Logic breaks here
-        return "Too Low", "📉 Go LOWER!" #FIXME: Logic breaks here
+            return "Too High", "📉 Go LOWER!"
+        return "Too Low", "📈 Go HIGHER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
@@ -93,8 +93,7 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
-    st.session_state.attempts = 1
-
+    st.session_state.attempts = 0 #FIX: Initialize attempts to 0 instead of 1, so that the first guess is attempt_number=1 in update_score
 if "score" not in st.session_state:
     st.session_state.score = 0
 
@@ -134,8 +133,14 @@ with col3:
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(1, 100)
-    st.success("New game started.")
+    st.session_state.status = "playing" #FIX: Reset game status to "playing" on new game, so that the user can play again without refreshing the page
+    st.session_state.history = []
+    st.session_state.show_new_game_msg = True
     st.rerun()
+
+if st.session_state.get("show_new_game_msg"): #FIX: Show a success message when a new game is started, to provide feedback to the user that their action was successful
+    st.success("New game started.")
+    st.session_state.show_new_game_msg = False
 
 if st.session_state.status != "playing":
     if st.session_state.status == "won":
